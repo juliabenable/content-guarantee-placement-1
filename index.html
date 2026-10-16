@@ -413,7 +413,7 @@ td{color:var(--muted)}
         <li>It's the coldest moment to ask: no brand, no product, no amount.</li>
         <li>It can't reach anyone already onboarded. They need B's gate anyway (C5).</li>
         <li>We chase 100 to 150 invitees instead of 20, with a weaker hook ("add a card" vs "claim your serum").</li>
-        <li>"Not now" needs a rule: are card-less creators still matched? Tony's call.</li>
+        <li>The skip link needs a rule: are card-less creators still matched? Tony's call. If there's no opt-out, the link goes.</li>
       </ul></div>
     </div>
   </section>
@@ -454,7 +454,9 @@ td{color:var(--muted)}
           <li><b>Tony:</b> at onboarding, is there a "Not now", and are card-less creators still matched?</li>
           <li><b>Katie and Logan:</b> Katie's Aug 18 rule that proven creators skip the card. Gone after "absolutely everybody"?</li>
           <li><b>Nathan and Nisarg:</b> where "up to $X" comes from per campaign; Apple Pay and Google Pay for saving a card in the app; an Ops alert when a card is declined.</li>
-          <li><b>Katie:</b> terms line for a card saved once for every collab (C2).</li>
+          <li><b>Katie:</b> terms line for a card saved once for every campaign (C2).</li>
+          <li><b>Tony and Katie:</b> what happens if a creator doesn't like the product? Today they're charged if they never post. If "tell us and we won't charge" becomes the rule, that's the strongest line we could put on C1.</li>
+          <li><b>Julia:</b> "campaign" or "collab" in onboarding? C1 uses "campaigns" to match the step before it.</li>
         </ul>
       </div>
     </div>
@@ -463,7 +465,7 @@ td{color:var(--muted)}
   <footer class="foot">
     <div class="eyebrow">Sources</div>
     <p>Standup Oct 16 2026 (Granola transcript). Fullstory, mobile and web, last 30 days, saved segments named "CG diag". Benny, read-only production snapshot Oct 16 18:12 UTC. Backend beneble_app as of Oct 15: post_selection_guarantee.rb, card_on_file_gate.rb, docs/content-guarantee-ops.md. Julia's production screenshots of Oct 16: the store sheet, the chooser and the saved-card page.</p>
-    <p>Fixture: Phyla Skincare, Acne Phage Serum, $55 order (from the chooser screenshot). The store sheet and saved-card page are rebuilt from Julia's screenshots; the new-card page (T3) is rebuilt from Fullstory tap labels and the saved-card layout, not from a screenshot. The Accept &amp; Commit screen (B1) is an approximation: no screenshot of it was available. Mock copy is a first pass, not run through the copywriter.</p>
+    <p>Fixture: Phyla Skincare, Acne Phage Serum, $55 order (from the chooser screenshot). The store sheet and saved-card page are rebuilt from Julia's screenshots; the new-card page (T3) is rebuilt from Fullstory tap labels and the saved-card layout, not from a screenshot. The Accept &amp; Commit screen (B1) is an approximation: no screenshot of it was available. C1 and C2 copy was reviewed by the copywriter agent on Oct 16 (Copy Desk rows q-20261016-165635-01 to -10); the rest is a first pass.</p>
   </footer>
 </div>
 
@@ -546,10 +548,10 @@ const commitHead=(chips=true)=>`<div class="shhead"><div class="t20">Commit to $
 const dealRows=()=>`<div class="deal" style="margin-bottom:14px"><div class="row"><span class="k">You get</span><span class="v">${P.camp}, free</span></div><div class="row"><span class="k">You post</span><span class="v">1 video, TikTok or Instagram</span></div><div class="row"><span class="k">When</span><span class="v">Within 14 days of delivery</span></div></div>`;
 const obTop=(w)=>`${sb()}<div class="obh"><span class="bk">‹</span>Brand Collabs</div><div class="obp"><i style="width:${w}%"></i></div>`;
 const c1Body=()=>`<div class="bd white" style="gap:14px;padding-top:16px">
-   <div class="hero">One card for every gifted collab</div>
-   <p class="mut">Brands send you product for free. A card on file is how we promise them you'll post.</p>
-   <div class="info"><i>i</i><p>$0 today. We only charge a collab's product price if you get the product and never post, and you always get a final warning first.</p></div>
-   <div class="card16"><div class="num"><i>1</i><div><b>Accept a collab</b><span>Your card covers it, nothing to add.</span></div></div><div class="num"><i>2</i><div><b>Get your product</b><span>Shipped free by the brand.</span></div></div><div class="num"><i>3</i><div><b>Post</b><span>Your card is never charged.</span></div></div></div>
+   <div class="hero">Content Guarantee</div>
+   <p class="mut">Brands send you product for free. A card on file is how they know you'll post.</p>
+   <div class="info"><i>i</i><p>$0 today. You're only charged the product's retail price if you get it and never post. You'll always get a final warning first.</p></div>
+   <div class="card16"><div class="num"><i>1</i><div><b>Accept a campaign</b><span>Your card is already saved.</span></div></div><div class="num"><i>2</i><div><b>Get your product</b><span>Shipped free by the brand.</span></div></div><div class="num"><i>3</i><div><b>Post</b><span>Your card is never charged.</span></div></div></div>
   </div>`;
 const guaranteeRow=(right)=>`<div class="sel" style="border-color:#E3E3E3"><span class="ic" style="width:34px;height:34px;border-radius:10px;background:#F1EDFF;color:#7A5CFA;display:flex;align-items:center;justify-content:center;flex:0 0 34px">${I.card}</span><div class="tx"><b>Content Guarantee</b><span>${P.card} · $0 today</span></div>${right}</div>`;
 
@@ -658,13 +660,13 @@ B6:()=>`<div class="ph store">${storeBg()}<div class="scrim"></div>
 
 /* C */
 C1:()=>`<div class="ph">${obTop(80)}${c1Body()}
-  <div class="obf">${applePay()}<div class="btn out">Add a card</div><div class="txtbtn" style="padding:2px 0;font-size:14px;color:#717171">Not now</div></div></div>`,
+  <div class="obf">${applePay()}<div class="btn out">Add a card</div><div class="txtbtn" style="padding:2px 0;font-size:14px;color:#717171">Skip gifted campaigns for now</div></div></div>`,
 C2:()=>`<div class="ph">${obTop(80)}${c1Body()}<div class="scrim"></div>
   <div class="sheet"><div class="grab"></div>
-   <div class="shhead"><div class="t20">Add a card</div><div class="x">✕</div></div>
-   <p class="mut" style="margin-bottom:14px">Used only for the Content Guarantee. $0 today.</p>
+   <div class="shhead"><div class="t20">Content Guarantee</div><div class="x">✕</div></div>
+   <p class="mut" style="margin-bottom:14px">$0 today. Charged only if you get the product and never post.</p>
    ${fields({filled:true,name:true})}
-   <p class="consent" style="margin:14px 0 10px">By saving your card, you agree to the <span>Content Guarantee Terms</span>. They apply to every product collab you accept.</p>
+   <p class="consent" style="margin:14px 0 10px">By saving your card, you agree to the <span>Content Guarantee Terms</span>. They apply to every campaign you accept.</p>
    <div class="btn">Save card</div><div style="margin-top:12px">${lock()}</div></div></div>`,
 C3:()=>`<div class="ph">${sb()}<div class="obh">Brand Collabs</div><div class="obp"><i style="width:100%"></i></div>
   <div class="bd white" style="gap:14px;padding-top:16px">
@@ -719,8 +721,8 @@ const strips={
     ['B6','','Store · after Confirm picks','<b>"All done" is finally true.</b> No footnote, button says "Back to Benable". Delivery shows the order, no chooser.']
   ],
   c:[
-    ['C1','','Onboarding · new step 8 of 10','Same chrome as the other Brand Collabs steps. Framed as how gifted collabs work here. "Not now" needs Tony\'s rule.'],
-    ['C2','','Card sheet','The terms line covers every collab, the one legal change C needs (Katie\'s question).'],
+    ['C1','','Onboarding · new step 8 of 10','<b>Copy reviewed Oct 16.</b> Named after the reason (Content Guarantee), brands "know you\'ll post" instead of us vouching, and the skip link states its cost. Says "campaigns" to match the step before.'],
+    ['C2','','Card sheet','Titled after the reason, with the one fact creators skim for. The terms line now covers every campaign: the one legal change C needs (Katie\'s question).'],
     ['C3','','Onboarding done','The card shows up as one of the things that make them ready.'],
     ['C4','','Later · Accept & Commit','<b>One tap.</b> No card form at the exciting moment, just a line saying they\'re covered.'],
     ['C5','','Not now, or onboarded before Monday','<b>Everyone already on Benable lands here.</b> They still need a card before accepting, which is B\'s gate. C can\'t replace B.']
