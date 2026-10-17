@@ -259,6 +259,19 @@ td{color:var(--muted)}
 .ph .dfoot .btn{flex:1}
 .ph .chip{display:inline-flex;align-items:center;gap:6px;background:var(--n9);border-radius:999px;padding:4px 10px;font-size:12.5px;color:var(--n3)}
 .ph .banner{background:var(--acc-w);border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.ph .amb-pill{display:inline-flex;align-self:flex-start;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:999px;background:#FEF3C7;color:#92400E;font-size:13px;font-weight:600}
+.ph .amb-pill::before{content:"";width:7px;height:7px;border-radius:50%;background:#D97706}
+.ph .stp .dot.amb{background:#D97706}
+.ph .nd{font-size:24px;line-height:30px;font-weight:700;letter-spacing:-.015em}
+.ph .steps2{width:100%;border:1px solid var(--n8);border-radius:14px;text-align:left;overflow:hidden}
+.ph .steps2 .s{display:flex;gap:12px;align-items:center;padding:12px 14px}
+.ph .steps2 .s + .s{border-top:1px solid var(--n8)}
+.ph .steps2 .s.done{color:var(--n4)}
+.ph .steps2 .s.done b{color:var(--n4);font-weight:500;text-decoration:line-through;text-decoration-color:#A5A5A5}
+.ph .steps2 .s.next{background:#FFFBEB}
+.ph .steps2 b{display:block;font-size:15px;line-height:20px;font-weight:600;color:var(--n1)}
+.ph .steps2 span.sub{display:block;font-size:13px;color:var(--n4)}
+.ph .num2{flex:0 0 24px;height:24px;border-radius:50%;background:#D97706;color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
 .ph .hl{position:absolute;z-index:19;border:2px solid #D63C3C;border-radius:12px;background:rgba(214,60,60,.05);pointer-events:none}
 .ph .apl{display:inline-flex;align-items:center;gap:5px}
 .ph .apl svg{margin-top:-2px}
@@ -337,7 +350,7 @@ td{color:var(--muted)}
       <div class="left">
         <div class="letter">Option A · <span class="tag proposed">Proposed · Julia</span></div>
         <h2>Fix the flow we have</h2>
-        <p>The card stays after picks. Every screen says the same thing: one step left, add a card. No chooser, Apple Pay first, and closing the sheet leaves a task on Delivery instead of a "done" page.</p>
+        <p>The card stays after picks, but every screen before it says one thing: you're not done yet. The store stops saying "All done", and the app's Delivery page asks for the card directly, with no chooser and Apple Pay first.</p>
       </div>
       <div class="verdicts">
         <span class="verdict no">Meets the 100% rule: <b>No</b></span>
@@ -347,15 +360,15 @@ td{color:var(--muted)}
     <div class="strip" data-strip="a"></div>
     <div class="twocol">
       <div class="panel"><h3>What it fixes</h3><ul>
-        <li>The store sheet is honest about the next step, and it's web, so it can ship today with no app release.</li>
+        <li>No screen says "done" until the card is in. The store sheet is web, so that part can ship today with no app release.</li>
         <li>One name everywhere: Content Guarantee. No "place the order", no "Free order".</li>
         <li>Apple Pay is the first button. Typing a card becomes the fallback.</li>
-        <li>Saved card: one tap on the same sheet, no hunting for Continue.</li>
+        <li>Saved card: one button that says what it does, "Use this card".</li>
       </ul></div>
       <div class="panel"><h3>What it doesn't fix</h3><ul>
         <li>The order still ships before the card. Tony's rule needs the card before the brand is told the campaign is full, so A alone doesn't meet it.</li>
         <li>The only lever would be holding the order until the card is in. That's an engineering change, and the brand still counts the creator as accepted.</li>
-        <li>Still relies on text follow-ups for whoever closes the sheet.</li>
+        <li>Still relies on text follow-ups for whoever leaves the page without saving.</li>
       </ul></div>
     </div>
   </section>
@@ -431,7 +444,7 @@ td{color:var(--muted)}
           <tr><th>Who we chase by text</th><td>About 20 per campaign, after picks</td><td>About 20 per campaign, before picks</td><td>100 to 150 portal invitees</td></tr>
           <tr><th>Reaches creators already onboarded</th><td><span class="y">Yes</span></td><td><span class="y">Yes</span></td><td><span class="n">No</span></td></tr>
           <tr><th>Brand sees a card-less creator</th><td>Yes, and they're counted as accepted</td><td>Yes, but the spot only counts once the card is in</td><td>No, once the backlog is covered</td></tr>
-          <tr><th>Build</th><td>Store sheet copy (web). Card sheet with Apple Pay, no chooser (app).</td><td>Card check on Accept. Card sheet moves there. Post-pick window and chooser go.</td><td>Everything in B, plus an onboarding step and a "no card, no invites" rule in matching</td></tr>
+          <tr><th>Build</th><td>Store sheet copy (web). Delivery card page with Apple Pay, no chooser (app).</td><td>Card check on Accept. Card sheet moves there. Post-pick window and chooser go.</td><td>Everything in B, plus an onboarding step and a "no card, no invites" rule in matching</td></tr>
           <tr><th>Ready Monday</th><td><span class="y">Web part today</span></td><td><span class="m">Likely, Nathan to size</span></td><td><span class="n">No</span></td></tr>
         </tbody>
       </table>
@@ -494,7 +507,7 @@ const logo=()=>`<div class="logo">PHYLA</div>`;
 const header=()=>`<div class="ch"><span class="bk">‹</span>${logo()}<div class="nm"><b>${P.brand}</b><span>${P.camp}</span></div><span class="vb">View Brief</span></div>`;
 const stepper=(cur,frac=.25,dotAt=-1)=>{
   const L=['Product','Delivery','Content','Publish'];
-  return `<div class="stp">${L.map((l,i)=>{const w=i<cur?100:(i===cur?frac*100:0);return `<div class="${i<=cur?'on':''}"><i><em style="width:${w}%"></em></i><span>${l}${i===dotAt?'<em class="dot"></em>':''}</span></div>`}).join('')}</div>`;
+  return `<div class="stp">${L.map((l,i)=>{const w=i<cur?100:(i===cur?frac*100:0);return `<div class="${i<=cur?'on':''}"><i><em style="width:${w}%"></em></i><span>${l}${i===Math.floor(dotAt)?`<em class="dot ${dotAt%1?'amb':''}"></em>`:''}</span></div>`}).join('')}</div>`;
 };
 const appTop=(cur,frac,dot)=>sb()+header()+stepper(cur,frac,dot);
 const lock=()=>`<div class="lock"><svg width="11" height="13" viewBox="0 0 11 13" aria-hidden="true"><rect x="0" y="5" width="11" height="8" rx="2" fill="#717171"/><path d="M2.5 5V3.6a3 3 0 0 1 6 0V5" stroke="#717171" stroke-width="1.6" fill="none"/></svg><span>Payments secured by Stripe. Benable never sees your card number.</span></div>`;
@@ -580,39 +593,46 @@ T4:()=>`<div class="ph">${appTop(1,.25)}<div class="bd">${cardPageTop()}
 
 /* A */
 A1:()=>`<div class="ph store">${storeBg()}<div class="scrim"></div>
-  <div class="wsheet"><div class="hd">One more step<span class="x">✕</span></div>
-   <div class="ct" style="align-items:stretch;text-align:left;gap:14px;padding-top:20px">
-    <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#1F8A55;font-weight:600">${ok(20)}Picks saved</div>
-    ${prow()}
-    <div class="t22" style="margin-top:4px">Now add a card for the Content Guarantee</div>
-    <p class="mut" style="font-size:15px;line-height:22px">${P.brand} covers your ${P.amt} order. Your card is only charged if you get the product and never post. $0 today.</p>
-   </div>
-   <div class="ft"><div class="btn" style="height:52px;font-size:17px">Add card in Benable</div><p style="font-weight:400;font-size:13px;color:#717171">You can change your picks until your order ships.</p></div></div></div>`,
-A2:()=>`<div class="ph">${appTop(1,.25,1)}<div class="bd"></div><div class="scrim"></div>
-  <div class="sheet"><div class="grab"></div>
-   <div class="shhead"><div class="t20">Content Guarantee</div><div class="x">✕</div></div>
-   <p class="mut" style="margin-bottom:14px">${P.brand} covers your ${P.amt} order. Add a card to finish.</p>
-   ${gRows(P.amt)}
-   <div style="margin-top:16px">${applePay()}</div>
-   <div class="or">or add a card</div>${fields()}
-   <p class="consent" style="margin:12px 0 10px">By saving your card, you agree to the <span>Content Guarantee Terms.</span></p>
-   <div class="btn">Save card</div></div></div>`,
-A3:()=>`<div class="ph">${appTop(1,.25,1)}<div class="bd" style="gap:14px">
-   <div><div class="t18">One step left</div><p class="mut" style="margin-top:6px">Your picks are saved. Add a card for the Content Guarantee and you're set.</p></div>
-   <div class="task"><div style="display:flex;gap:12px;align-items:center"><span style="width:36px;height:36px;border-radius:10px;background:#F1EDFF;color:#7A5CFA;display:flex;align-items:center;justify-content:center;flex:0 0 36px">${I.card}</span><div style="flex:1"><b style="display:block;font-size:15px">Content Guarantee</b><span style="font-size:13px;color:#717171">$0 today · Add it by ${P.due}</span></div></div>
-     ${applePay()}<div class="btn out sm">Add a card</div></div>
-   <div class="card16" style="display:flex;flex-direction:column;gap:12px">
-     <b style="font-size:14px">Your order</b>
-     <div style="display:flex;gap:12px;align-items:center"><div class="thumbs"><span>${bottle(40)}</span></div><div><b style="display:block;font-size:14px">${P.camp}</b><span style="font-size:13px;color:#717171">${P.brand} is preparing it</span></div></div>
-   </div>
-   <div class="info"><i>i</i><p>Your 14-day posting window starts when your order is delivered.</p></div>
-  </div></div>`,
+  <div class="wsheet"><div class="hd">1 step left<span class="x">✕</span></div>
+   <div class="ct" style="gap:12px;padding-top:22px">
+    <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="28" fill="#FFFBEB" stroke="#FDE68A" stroke-width="5"/><path d="M32 4a28 28 0 0 1 0 56" fill="none" stroke="#D97706" stroke-width="5" stroke-linecap="round"/><text x="32" y="38" text-anchor="middle" font-family="Inter,sans-serif" font-size="17" font-weight="700" fill="#92400E">1/2</text></svg>
+    <div class="nd">You're not done yet</div>
+    <p class="mut" style="font-size:15px;line-height:22px">Your picks are saved. Add a card for the Content Guarantee in the Benable app to finish. $0 today.</p>
+    <div class="steps2" style="margin-top:4px">
+      <div class="s done">${ok(24)}<div><b>Confirm your picks</b><span class="sub">${P.camp}</span></div></div>
+      <div class="s next"><span class="num2">2</span><div><b>Add a card in Benable</b><span class="sub">Content Guarantee · $0 today</span></div></div>
+    </div></div>
+   <div class="ft"><div class="btn" style="height:52px;font-size:17px">Finish in Benable</div><p style="font-weight:400;font-size:13px;color:#717171">You can update your picks here until your order ships.</p></div></div></div>`,
+A2:()=>`<div class="ph">${appTop(1,.25,1.5)}<div class="bd">
+  <span class="amb-pill">1 step left</span>
+  <div class="nd" style="margin-top:8px">You're not done yet</div>
+  <p class="mut" style="margin-top:4px">Your picks are saved. Add a card for the Content Guarantee to finish.</p>
+  <div class="card16" style="margin-top:14px;padding:14px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline"><b style="font-size:15px">Content Guarantee</b><span class="lnk" style="font-size:13px">Learn more</span></div>
+    <p class="mut" style="font-size:13px;line-height:18px;margin-top:4px">$0 today. You're only charged the ${P.amt} if you get the product and never post.</p>
+    <div style="margin-top:12px">${applePay()}</div>
+    <div class="or" style="margin:10px 0">or add a card</div>${fields()}
+  </div>
+  <div style="margin-top:auto;display:flex;flex-direction:column;gap:10px">
+   <p class="consent">By saving your card, you agree to the <span>Content Guarantee Terms.</span></p>
+   <div class="btn">Save card and finish</div></div></div></div>`,
+A3:()=>`<div class="ph">${appTop(1,.25,1.5)}<div class="bd">
+  <span class="amb-pill">1 step left</span>
+  <div class="nd" style="margin-top:8px">You're not done yet</div>
+  <p class="mut" style="margin-top:4px">Your picks are saved. Confirm your card for the Content Guarantee to finish.</p>
+  <div class="card16" style="margin-top:14px;padding:14px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline"><b style="font-size:15px">Content Guarantee</b><span class="lnk" style="font-size:13px">Learn more</span></div>
+    <p class="mut" style="font-size:13px;line-height:18px;margin-top:4px">$0 today. You're only charged the ${P.amt} if you get the product and never post.</p>
+    <div class="sel" style="margin-top:12px"><div class="tx"><b>Visa ...0644</b><span>Expiration: 12/2029</span></div><span class="rp">Replace</span></div>
+  </div>
+  <div style="margin-top:auto;display:flex;flex-direction:column;gap:10px">
+   <p class="consent">By continuing, you agree to the <span>Content Guarantee Terms.</span></p>
+   <div class="btn">Use this card and finish</div>${lock()}</div></div></div>`,
 A4:()=>`<div class="ph">${appTop(1,.5)}<div class="bd" style="gap:14px">
-   <div style="display:flex;gap:10px;align-items:center">${ok(28)}<div class="t18">You're set</div></div>
+   <div style="display:flex;gap:10px;align-items:center">${ok(28)}<div class="nd" style="font-size:22px">Now you're done</div></div>
    <p class="mut">Your order is on its way. We'll update this page when tracking is available.</p>
    <div class="card16" style="display:flex;gap:12px;align-items:center"><div class="thumbs"><span>${bottle(40)}</span></div><div style="flex:1"><b style="display:block;font-size:14px">${P.camp}</b><span style="font-size:13px;color:#717171">Order placed · ships to ${P.city}</span></div></div>
    ${guaranteeRow('<span class="rp">Change</span>')}
-   <div class="info"><i>i</i><p>Your 14-day posting window starts when your order is delivered.</p></div>
   </div></div>`,
 
 /* B */
@@ -707,10 +727,10 @@ const strips={
     ['T4','t','App · Free order, saved card','Your screenshot: the card is preselected and Continue sits at the bottom.']
   ],
   a:[
-    ['A1','','Store · after Confirm picks','<b>"One more step", not "All done".</b> Picks shown as saved, the card named, the button says what happens next. Web only: can ship today.'],
-    ['A2','','App opens on the card','<b>No chooser.</b> One sheet named Content Guarantee: three plain lines, Apple Pay first, typing as the fallback. A saved card shows here as one row with a button.'],
-    ['A3','','If they close the sheet','<b>Delivery shows a task, not "done".</b> The progress bar gets a dot, the date is visible, and Apple Pay is one tap away.'],
-    ['A4','','Card saved','"You\'re set" is now true. The guarantee shows as a row they can change.']
+    ['A1','','Store (web) · after Confirm picks','<b>"You\'re not done yet" replaces "All done".</b> A half-filled ring instead of the green check, picks crossed off as step 1, the card as step 2 in amber. Web only: can ship today.'],
+    ['A2','','App · Delivery, new card','<b>The app says it again, loudest thing on the page.</b> Same Delivery page as today, minus the chooser: amber "1 step left", the card in one block, Apple Pay first. The button says "finish".'],
+    ['A3','','App · Delivery, saved card','Today\'s saved-card page with the same "not done yet" header and one button that says what it does.'],
+    ['A4','','App · card saved','Only now does the app say done. If they leave before saving, Delivery reopens on A2 and the texts take over.']
   ],
   b:[
     ['B1','','Invite · before accepting','The deal lists the guarantee up front, so the card isn\'t a surprise. Approximated chrome.'],
