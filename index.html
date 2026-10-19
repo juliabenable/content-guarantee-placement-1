@@ -338,7 +338,7 @@ td{color:var(--muted)}
       <li><span class="n">5</span><span><b>Two menu rows and no button.</b> Pay now got zero real taps. The only price on screen sits on the option nobody picks.</span></li>
       <li><span class="n">6</span><span><b>The progress bar says Content is next.</b> One creator tapped "Content" twice looking for the next step.</span></li>
       <li><span class="n">7</span><span><b>A fifth name</b> ("Credit or debit card") and "all creators are required" right after a screen that offered a choice.</span></li>
-      <li><span class="n">8</span><span><b>Typed by hand, no Apple Pay.</b> Several creators left the app mid-form to find their card. One was declined twice by Stripe and had no way forward.</span></li>
+      <li><span class="n">8</span><span><b>A card typed by hand on a phone.</b> Several creators left the app mid-form to find their card. One was declined twice by Stripe and had no way forward.</span></li>
       <li><span class="n">9</span><span><b>Back is an easy exit.</b> It returns to a page that says the order is placed. Eight creators hit Back or Back to Delivery mid-form.</span></li>
       <li><span class="n">10</span><span><b>A saved card still needs a Continue</b> at the bottom of an empty page. The production copy also has a long dash.</span></li>
     </ol>
@@ -350,7 +350,7 @@ td{color:var(--muted)}
       <div class="left">
         <div class="letter">Option A · <span class="tag proposed">Proposed · Julia</span></div>
         <h2>Fix the flow we have</h2>
-        <p>The card stays after picks, but every screen before it says one thing: you're not done yet. The store stops saying "All done", and the app's Delivery page asks for the card directly, with no chooser and Apple Pay first.</p>
+        <p>The card stays after picks, but every screen before it says one thing: you're not done yet. The store stops saying "All done", and the app's Delivery page asks for the card directly, with no chooser.</p>
       </div>
       <div class="verdicts">
         <span class="verdict no">Meets the 100% rule: <b>No</b></span>
@@ -362,7 +362,7 @@ td{color:var(--muted)}
       <div class="panel"><h3>What it fixes</h3><ul>
         <li>No screen says "done" until the card is in. The store sheet is web, so that part can ship today with no app release.</li>
         <li>One name everywhere: Content Guarantee. No "place the order", no "Free order".</li>
-        <li>Apple Pay is the first button. Typing a card becomes the fallback.</li>
+        <li>The card form sits on the page itself, one block, one button. No extra tap to open it.</li>
         <li>Saved card: one button that says what it does, "Use this card".</li>
       </ul></div>
       <div class="panel"><h3>What it doesn't fix</h3><ul>
@@ -444,7 +444,7 @@ td{color:var(--muted)}
           <tr><th>Who we chase by text</th><td>About 20 per campaign, after picks</td><td>About 20 per campaign, before picks</td><td>100 to 150 portal invitees</td></tr>
           <tr><th>Reaches creators already onboarded</th><td><span class="y">Yes</span></td><td><span class="y">Yes</span></td><td><span class="n">No</span></td></tr>
           <tr><th>Brand sees a card-less creator</th><td>Yes, and they're counted as accepted</td><td>Yes, but the spot only counts once the card is in</td><td>No, once the backlog is covered</td></tr>
-          <tr><th>Build</th><td>Store sheet copy (web). Delivery card page with Apple Pay, no chooser (app).</td><td>Card check on Accept. Card sheet moves there. Post-pick window and chooser go.</td><td>Everything in B, plus an onboarding step and a "no card, no invites" rule in matching</td></tr>
+          <tr><th>Build</th><td>Store sheet copy (web). Delivery card page, no chooser (app).</td><td>Card check on Accept. Card sheet moves there. Post-pick window and chooser go.</td><td>Everything in B, plus an onboarding step and a "no card, no invites" rule in matching</td></tr>
           <tr><th>Ready Monday</th><td><span class="y">Web part today</span></td><td><span class="m">Likely, Nathan to size</span></td><td><span class="n">No</span></td></tr>
         </tbody>
       </table>
@@ -466,7 +466,7 @@ td{color:var(--muted)}
           <li><b>Tony:</b> B now and C later, or straight to C?</li>
           <li><b>Tony:</b> at onboarding, is there a "Not now", and are card-less creators still matched?</li>
           <li><b>Katie and Logan:</b> Katie's Aug 18 rule that proven creators skip the card. Gone after "absolutely everybody"?</li>
-          <li><b>Nathan and Nisarg:</b> where "up to $X" comes from per campaign; Apple Pay and Google Pay for saving a card in the app; an Ops alert when a card is declined.</li>
+          <li><b>Nathan and Nisarg:</b> where "up to $X" comes from per campaign; Apple Pay later (not available today); an Ops alert when a card is declined.</li>
           <li><b>Katie:</b> terms line for a card saved once for every campaign (C2).</li>
           <li><b>Tony and Katie:</b> what happens if a creator doesn't like the product? Today they're charged if they never post. If "tell us and we won't charge" becomes the rule, that's the strongest line we could put on C1.</li>
           <li><b>Julia:</b> "campaign" or "collab" in onboarding? C1 uses "campaigns" to match the step before it.</li>
@@ -610,12 +610,11 @@ A2:()=>`<div class="ph">${appTop(1,.25,1.5)}<div class="bd">
   <div class="card16" style="margin-top:14px;padding:14px">
     <div style="display:flex;justify-content:space-between;align-items:baseline"><b style="font-size:15px">Content Guarantee</b><span class="lnk" style="font-size:13px">Learn more</span></div>
     <p class="mut" style="font-size:13px;line-height:18px;margin-top:4px">$0 today. You're only charged the ${P.amt} if you get the product and never post.</p>
-    <div style="margin-top:12px">${applePay()}</div>
-    <div class="or" style="margin:10px 0">or add a card</div>${fields()}
+    <div style="margin-top:12px">${fields({name:true})}</div>
   </div>
   <div style="margin-top:auto;display:flex;flex-direction:column;gap:10px">
    <p class="consent">By saving your card, you agree to the <span>Content Guarantee Terms.</span></p>
-   <div class="btn">Save card and finish</div></div></div></div>`,
+   <div class="btn">Save card and finish</div>${lock()}</div></div></div>`,
 A3:()=>`<div class="ph">${appTop(1,.25,1.5)}<div class="bd">
   <span class="amb-pill">1 step left</span>
   <div class="nd" style="margin-top:8px">You're not done yet</div>
@@ -640,10 +639,9 @@ B1:()=>`<div class="ph">${sb()}${header()}${inviteBody()}${inviteFoot()}</div>`,
 B2:()=>`<div class="ph">${invite()}
   <div class="sheet"><div class="grab"></div>${commitHead()}
    ${gRows(P.amt,true)}
-   <div style="margin-top:16px">${applePay()}</div>
-   <div class="or">or add a card</div>${fields()}
+   <div style="margin-top:16px">${fields({name:true})}</div>
    <p class="consent" style="margin:12px 0 10px">By accepting, you agree to the <span>Content Guarantee Terms</span> for this collab.</p>
-   <div class="btn">Accept and save card</div></div></div>`,
+   <div class="btn">Accept and save card</div><div style="margin-top:10px">${lock()}</div></div></div>`,
 B3:()=>`<div class="ph">${invite()}
   <div class="sheet" style="top:250px"><div class="grab"></div>${commitHead(false)}${dealRows()}
    <div class="info" style="margin-bottom:16px"><i>i</i><p>$0 today. We only charge up to ${P.amt} if you get the product and never post, with a final warning first.</p></div>
@@ -654,10 +652,9 @@ B3:()=>`<div class="ph">${invite()}
    <div class="btn">Accept &amp; Commit</div></div></div></div>`,
 B4:()=>`<div class="ph">${invite()}
   <div class="sheet"><div class="grab"></div>${commitHead()}
-   <div class="err-box"><span style="flex:0 0 16px;margin-top:1px">${I.alert}</span><span>Your bank declined this card. Try a different card or Apple Pay. Debit cards work too.</span></div>
-   ${fields({filled:true,err:true})}
+   <div class="err-box"><span style="flex:0 0 16px;margin-top:1px">${I.alert}</span><span>Your bank declined this card. Try a different card. Debit cards work too.</span></div>
+   ${fields({filled:true,err:true,name:true})}
    <div class="btn" style="margin-top:12px">Try again</div>
-   <div class="or">or</div>${applePay()}
    <p class="consent" style="margin-top:14px;color:#717171">Still stuck? Reply to our text and we'll sort it out with you.</p></div></div>`,
 B5:()=>`<div class="ph">${appTop(0,.15)}<div class="bd" style="gap:14px">
    <div style="display:flex;gap:10px;align-items:center">${ok(28)}<div class="t18">You're in</div></div>
@@ -680,7 +677,7 @@ B6:()=>`<div class="ph store">${storeBg()}<div class="scrim"></div>
 
 /* C */
 C1:()=>`<div class="ph">${obTop(80)}${c1Body()}
-  <div class="obf">${applePay()}<div class="btn out">Add a card</div><div class="txtbtn" style="padding:2px 0;font-size:14px;color:#717171">Skip gifted campaigns for now</div></div></div>`,
+  <div class="obf"><div class="btn">Add a card</div><div class="txtbtn" style="padding:2px 0;font-size:14px;color:#717171">Skip gifted campaigns for now</div></div></div>`,
 C2:()=>`<div class="ph">${obTop(80)}${c1Body()}<div class="scrim"></div>
   <div class="sheet"><div class="grab"></div>
    <div class="shhead"><div class="t20">Content Guarantee</div><div class="x">✕</div></div>
@@ -708,7 +705,7 @@ C4:()=>`<div class="ph">${invite()}
    <div class="btn">Accept &amp; Commit</div></div></div></div>`,
 C5:()=>`<div class="ph">${sb()}<div class="obh">Brand Collabs</div>
   <div class="bd" style="gap:14px">
-   <div class="banner"><div style="display:flex;gap:10px;align-items:center"><span style="color:#7A5CFA">${I.card}</span><b style="font-size:15px">Add a card to get collab invites</b></div><span class="mut" style="font-size:13.5px;line-height:19px">Gifted collabs need a Content Guarantee. $0 today, only charged if you get a product and never post.</span>${applePay()}<div class="btn out sm">Add a card</div></div>
+   <div class="banner"><div style="display:flex;gap:10px;align-items:center"><span style="color:#7A5CFA">${I.card}</span><b style="font-size:15px">Add a card to get collab invites</b></div><span class="mut" style="font-size:13.5px;line-height:19px">Gifted collabs need a Content Guarantee. $0 today, only charged if you get a product and never post.</span><div class="btn sm">Add a card</div></div>
    <div class="card16" style="display:flex;flex-direction:column;gap:10px">
      <div style="display:flex;gap:10px;align-items:center">${logo()}<div><b style="display:block">${P.brand}</b><span style="font-size:13px;color:#717171">wants to work with you</span></div></div>
      <div style="height:120px;border-radius:12px;background:linear-gradient(160deg,#F3EEE6,#E9E2D6);display:flex;align-items:center;justify-content:center">${bottle(96)}</div>
@@ -728,13 +725,13 @@ const strips={
   ],
   a:[
     ['A1','','Store (web) · after Confirm picks','<b>"You\'re not done yet" replaces "All done".</b> A half-filled ring instead of the green check, picks crossed off as step 1, the card as step 2 in amber. Web only: can ship today.'],
-    ['A2','','App · Delivery, new card','<b>The app says it again, loudest thing on the page.</b> Same Delivery page as today, minus the chooser: amber "1 step left", the card in one block, Apple Pay first. The button says "finish".'],
+    ['A2','','App · Delivery, new card','<b>The app says it again, loudest thing on the page.</b> Same Delivery page as today, minus the chooser: amber "1 step left", the card form in one block. The button says "finish".'],
     ['A3','','App · Delivery, saved card','Today\'s saved-card page with the same "not done yet" header and one button that says what it does.'],
     ['A4','','App · card saved','Only now does the app say done. If they leave before saving, Delivery reopens on A2 and the texts take over.']
   ],
   b:[
     ['B1','','Invite · before accepting','The deal lists the guarantee up front, so the card isn\'t a surprise. Approximated chrome.'],
-    ['B2','','Accept & Commit · new card','<b>One sheet: what you get, what you promise, the card.</b> Apple Pay first. "Up to $55" because picks come later.'],
+    ['B2','','Accept & Commit · new card','<b>One sheet: what you get, what you promise, the card.</b> "Up to $55" because picks come later.'],
     ['B3','','Accept & Commit · saved card','<b>Returning creators: one tap.</b> The saved card is preselected on the same sheet.'],
     ['B4','','Card declined','Says what happened and what to try. Ops gets an alert, so nobody is left stuck like the creator declined twice on Oct 15.'],
     ['B5','','Accepted','"You\'re in" comes after the card. Then they pick products, the fun part.'],
