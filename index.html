@@ -272,6 +272,31 @@ td{color:var(--muted)}
 .ph .steps2 b{display:block;font-size:15px;line-height:20px;font-weight:600;color:var(--n1)}
 .ph .steps2 span.sub{display:block;font-size:13px;color:var(--n4)}
 .ph .num2{flex:0 0 24px;height:24px;border-radius:50%;background:#D97706;color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.ph .pop{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:30px 30px 0 0;z-index:6;padding:10px 20px 34px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.ph .pop .grab2{width:42px;height:4px;border-radius:2px;background:#CFCAE8}
+.ph .fan{position:relative;height:236px;width:100%;margin:22px 0 6px}
+.ph .fan .f{position:absolute;border-radius:16px;overflow:hidden;box-shadow:0 10px 26px rgba(0,0,0,.18);border:3px solid #fff;display:flex;align-items:center;justify-content:center}
+.ph .fan .f.l{width:112px;height:158px;left:34px;top:38px;transform:rotate(-8deg)}
+.ph .fan .f.r{width:120px;height:160px;right:30px;top:30px;transform:rotate(8deg)}
+.ph .fan .f.c{width:142px;height:204px;left:50%;top:0;transform:translateX(-50%);z-index:2}
+.ph .fan .badge{position:absolute;left:50%;top:204px;transform:translate(-50%,-50%);width:46px;height:46px;border-radius:50%;background:#7A5CFA;box-shadow:0 0 0 3px #fff,0 6px 14px rgba(122,92,250,.45);color:#fff;display:flex;align-items:center;justify-content:center;z-index:3}
+.ph .pop h4{font-size:21px;line-height:27px;font-weight:700;margin:18px 0 8px;letter-spacing:-.01em;text-wrap:balance}
+.ph .pop p.ps{font-size:14.5px;line-height:21px;color:#7A7A7A;padding:0 6px;text-wrap:balance}
+.ph .pop .btn{margin-top:26px}
+.ph .ccard{width:100%;height:100%;background:linear-gradient(140deg,#9A80FF,#6A4BEF 55%,#4B30C9);color:#fff;padding:12px 10px;display:flex;flex-direction:column;justify-content:space-between;text-align:left}
+.ph .ccard .chipg{width:22px;height:16px;border-radius:4px;background:linear-gradient(135deg,#F3D58A,#C9A24B)}
+.ph .ccard small{font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;opacity:.85}
+.ph .ccard b{font-size:12px;letter-spacing:.12em;font-weight:600}
+.ph .postc{width:100%;height:100%;background:linear-gradient(170deg,#F7DCD3,#EFC2B6);position:relative;display:flex;align-items:center;justify-content:center}
+.ph .postc .play{position:absolute;top:10px;right:10px;width:26px;height:26px;border-radius:50%;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center}
+.ph .postc .cap2{position:absolute;left:8px;bottom:8px;right:8px;height:6px;border-radius:3px;background:rgba(255,255,255,.75)}
+.ph .postc .cap2::after{content:"";position:absolute;left:0;top:10px;width:60%;height:6px;border-radius:3px;background:rgba(255,255,255,.6)}
+.ph .prodc{width:100%;height:100%;background:linear-gradient(160deg,#F3EEE6,#E6DDCF);display:flex;align-items:center;justify-content:center}
+.ph .disc-h{height:44px;display:flex;align-items:center;justify-content:center;position:relative;font-weight:600;font-size:16px}
+.ph .disc-h svg{position:absolute;right:20px}
+.ph .chips{display:flex;gap:8px;padding:8px 16px 12px;overflow:hidden}
+.ph .chips span{flex:0 0 auto;height:36px;padding:0 16px;border-radius:12px;background:#F1F1F1;display:flex;align-items:center;font-size:15px}
+.ph .chips span.on{background:#1C1C1C;color:#fff}
 .ph.comp{width:343px;height:auto;background:transparent;overflow:visible;display:block}
 .ph .tc{background:#fff;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px;box-shadow:inset 0 0 0 1.5px var(--acc),0 10px 28px -16px rgba(122,92,250,.55)}
 .ph .tc.done{box-shadow:inset 0 0 0 1px var(--n8)}
@@ -396,6 +421,7 @@ td{color:var(--muted)}
         <li>No screen says "done" until the card is in. The store sheet is web, so that part can ship today with no app release.</li>
         <li>One name everywhere: Content Guarantee. No "place the order", no "Free order".</li>
         <li>One card on Delivery holds the whole ask: status, the $0 line, one button. It shows the saved card when there is one.</li>
+        <li>A popup in the app's own sheet style catches them the moment they land back from the store.</li>
         <li>Saved card: one button that says what it does, "Use this card".</li>
       </ul></div>
       <div class="panel"><h3>What it doesn't fix</h3><ul>
@@ -457,7 +483,7 @@ td{color:var(--muted)}
       </ul></div>
       <div class="panel"><h3>What it costs</h3><ul>
         <li>It's the coldest moment to ask: no brand, no product, no amount.</li>
-        <li>It can't reach anyone already onboarded. They need B's gate anyway (C5).</li>
+        <li>It can't reach anyone already onboarded without a popup (C5), and they still need B's gate anyway (C6).</li>
         <li>We chase 100 to 150 invitees instead of 20, with a weaker hook ("add a card" vs "claim your serum").</li>
         <li>The skip link needs a rule: are card-less creators still matched? Tony's call. If there's no opt-out, the link goes.</li>
       </ul></div>
@@ -475,7 +501,7 @@ td{color:var(--muted)}
           <tr><th>When the creator hears why</th><td>After the reward, on a "done" screen</td><td>At the decision, next to the product they want</td><td>Before any brand or product is in view</td></tr>
           <tr><th>Amount shown</th><td>Exact: $55</td><td>Up to the campaign max: up to $55</td><td>A rule, no amount</td></tr>
           <tr><th>Who we chase by text</th><td>About 20 per campaign, after picks</td><td>About 20 per campaign, before picks</td><td>100 to 150 portal invitees</td></tr>
-          <tr><th>Reaches creators already onboarded</th><td><span class="y">Yes</span></td><td><span class="y">Yes</span></td><td><span class="n">No</span></td></tr>
+          <tr><th>Reaches creators already onboarded</th><td><span class="y">Yes</span></td><td><span class="y">Yes</span></td><td><span class="m">Only by popup (C5),</span> and accepting still needs B</td></tr>
           <tr><th>Brand sees a card-less creator</th><td>Yes, and they're counted as accepted</td><td>Yes, but the spot only counts once the card is in</td><td>No, once the backlog is covered</td></tr>
           <tr><th>Build</th><td>Store sheet copy (web). Delivery card page, no chooser (app).</td><td>Card check on Accept. Card sheet moves there. Post-pick window and chooser go.</td><td>Everything in B, plus an onboarding step and a "no card, no invites" rule in matching</td></tr>
           <tr><th>Ready Monday</th><td><span class="y">Web part today</span></td><td><span class="m">Likely, Nathan to size</span></td><td><span class="n">No</span></td></tr>
@@ -622,6 +648,16 @@ const taskCard=(st='new')=>{
 const orderMuted=()=>`<div class="card16" style="display:flex;gap:12px;align-items:center;opacity:.75"><div class="thumbs"><span>${bottle(40)}</span></div><div style="flex:1"><b style="display:block;font-size:14px">${P.camp}</b><span style="font-size:13px;color:#717171">${P.brand} is preparing your order</span></div></div>`;
 const pushTop=(t)=>`${sb()}<div class="obh" style="border-bottom:1px solid #F1F1F1"><span class="bk">‹</span>${t}</div>`;
 
+const fan=(center)=>`<div class="fan">
+  <div class="f l"><div class="ccard"><small>Content Guarantee</small><span class="chipg"></span><b>•••• 4242</b></div></div>
+  <div class="f r"><div class="postc">${bottle(70)}<span class="play"><svg width="10" height="12" viewBox="0 0 10 12" aria-hidden="true"><path d="M1 1l8 5-8 5z" fill="#fff"/></svg></span><span class="cap2"></span></div></div>
+  <div class="f c">${center}</div>
+  <span class="badge"><svg width="22" height="22" viewBox="0 0 14 14" aria-hidden="true"><path d="M7 1.2l4.6 1.8v3.5c0 2.8-2 4.9-4.6 5.9-2.6-1-4.6-3.1-4.6-5.9V3z" fill="#fff"/><path d="M4.8 7.1l1.6 1.6 2.9-3.1" stroke="#7A5CFA" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>`;
+const discoverBg=()=>`${sb()}<div class="disc-h">Discover<svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="none" stroke="#1C1C1C" stroke-width="1.8"/><path d="M12.5 12.5L16 16" stroke="#1C1C1C" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+  <div class="chips"><span class="on">Trending</span><span>Fashion</span><span>Beauty</span><span>Food</span></div>
+  <div style="padding:6px 16px;display:flex;gap:10px;align-items:center"><span style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#D9CFC4,#A8998A)"></span><b style="font-size:15px;font-weight:500">Maya R.</b></div>
+  <div style="margin:8px 16px;height:420px;border-radius:14px;background:linear-gradient(160deg,#E9E4DC,#CFC6B8)"></div>`;
+
 /* ---------- screens ---------- */
 const S={
 /* TODAY */
@@ -658,26 +694,34 @@ A1:()=>`<div class="ph store">${storeBg()}<div class="scrim"></div>
     </div></div>
    <div class="ft"><div class="btn" style="height:52px;font-size:17px">Finish in Benable</div><p style="font-weight:400;font-size:13px;color:#717171">You can update your picks here until your order ships.</p></div></div></div>`,
 A2:()=>`<div class="ph">${appTop(1,.25,1.5)}<div class="bd" style="gap:14px">
+  <div><span class="amb-pill">1 step left</span><div class="nd" style="margin-top:8px">You're not done yet</div></div>
+  ${taskCard('new')}</div><div class="scrim"></div>
+  <div class="pop"><div class="grab2"></div>
+   ${fan(`<div class="prodc">${bottle(120)}</div>`)}
+   <h4>You're not done yet</h4>
+   <p class="ps">Your ${P.camp} is picked. Add a card for the Content Guarantee to finish. $0 today, only charged if you never post.</p>
+   <div class="btn blk">Add a card</div></div></div>`,
+A3:()=>`<div class="ph">${appTop(1,.25,1.5)}<div class="bd" style="gap:14px">
   <div><span class="amb-pill">1 step left</span>
   <div class="nd" style="margin-top:8px">You're not done yet</div>
   <p class="mut" style="margin-top:4px">Your picks are saved. Add your card to finish.</p></div>
   ${taskCard('new')}
   <div><div style="font-size:13px;font-weight:600;color:#717171;margin:6px 0 8px">Your order</div>${orderMuted()}</div>
   </div></div>`,
-A3:()=>`<div class="ph">${pushTop('Add a card')}<div class="bd white" style="gap:14px">
+A4:()=>`<div class="ph">${pushTop('Add a card')}<div class="bd white" style="gap:14px">
   <div><div class="t20">Content Guarantee</div><p class="mut" style="margin-top:4px">$0 today. You're only charged the ${P.amt} if you get the product and never post. You'll always get a final warning first.</p></div>
   ${fields({name:true})}
   <div style="margin-top:auto;display:flex;flex-direction:column;gap:10px">
    <p class="consent">By saving your card, you agree to the <span>Content Guarantee Terms.</span></p>
    <div class="btn">Save card and finish</div>${lock()}</div></div></div>`,
-A4:()=>`<div class="ph">${appTop(1,.25,1.5)}<div class="bd" style="gap:14px">
+A5:()=>`<div class="ph">${appTop(1,.25,1.5)}<div class="bd" style="gap:14px">
   <div><span class="amb-pill">1 step left</span>
   <div class="nd" style="margin-top:8px">You're not done yet</div>
   <p class="mut" style="margin-top:4px">Your picks are saved. Confirm your card to finish.</p></div>
   ${taskCard('saved')}
   <div><div style="font-size:13px;font-weight:600;color:#717171;margin:6px 0 8px">Your order</div>${orderMuted()}</div>
   </div></div>`,
-A5:()=>`<div class="ph">${appTop(1,.5)}<div class="bd" style="gap:14px">
+A6:()=>`<div class="ph">${appTop(1,.5)}<div class="bd" style="gap:14px">
    <div style="display:flex;gap:10px;align-items:center">${ok(28)}<div class="nd" style="font-size:22px">Now you're done</div></div>
    <p class="mut">Your order is on its way. We'll update this page when tracking is available.</p>
    ${taskCard('done')}
@@ -753,7 +797,13 @@ C4:()=>`<div class="ph">${invite()}
    <div style="margin-top:auto">
    <p class="consent" style="margin:0 0 10px">By accepting, you agree to post within 14 days of delivery.</p>
    <div class="btn">Accept &amp; Commit</div></div></div></div>`,
-C5:()=>`<div class="ph">${sb()}<div class="obh">Brand Collabs</div>
+C5:()=>`<div class="ph">${discoverBg()}<div class="scrim"></div>
+  <div class="pop"><div class="grab2"></div>
+   ${fan(`<div class="prodc" style="background:linear-gradient(160deg,#EEF0F7,#D9DDEA)">${bottle(110)}</div>`)}
+   <h4>Gifted campaigns now come with a card on file</h4>
+   <p class="ps">Brands send you product for free. A card is how they know you'll post. $0 today, only charged if you get a product and never post.</p>
+   <div class="btn blk">Add a card</div></div></div>`,
+C6:()=>`<div class="ph">${sb()}<div class="obh">Brand Collabs</div>
   <div class="bd" style="gap:14px">
    <div class="banner"><div style="display:flex;gap:10px;align-items:center"><span style="color:#7A5CFA">${I.card}</span><b style="font-size:15px">Add a card to get collab invites</b></div><span class="mut" style="font-size:13.5px;line-height:19px">Gifted collabs need a Content Guarantee. $0 today, only charged if you get a product and never post.</span><div class="btn sm">Add a card</div></div>
    <div class="card16" style="display:flex;flex-direction:column;gap:10px">
@@ -775,10 +825,11 @@ const strips={
   ],
   a:[
     ['A1','','Store (web) · after Confirm picks','<b>"You\'re not done yet" replaces "All done".</b> A half-filled ring instead of the green check, picks crossed off as step 1, the card as step 2 in amber. Web only: can ship today.'],
-    ['A2','','App · Delivery, no card yet','<b>The card is the only thing on the page that asks for anything.</b> Amber "1 step left", "You\'re not done yet", then the Content Guarantee card. The order sits below, quiet.'],
-    ['A3','','App · Add a card','A plain native screen behind the card\'s button: the $0 line, the form, the terms, one button that says finish.'],
-    ['A4','','App · Delivery, card already on file','Same card, other state: their saved card is shown and one tap uses it. No hunting for Continue.'],
-    ['A5','','App · card saved','Only now does Delivery say done. The card flips to its "Added" state.']
+    ['A2','','App · popup when they land back','<b>Same sheet style as the Instagram recs popup.</b> Fanned cards (card, product, post) with the guarantee badge on the seam, one title, one black button. Swipe it away and the card on Delivery is still there.'],
+    ['A3','','App · Delivery, no card yet','<b>The card is the only thing on the page that asks for anything.</b> Amber "1 step left", "You\'re not done yet", then the Content Guarantee card. The order sits below, quiet.'],
+    ['A4','','App · Add a card','A plain native screen behind both buttons: the $0 line, the form, the terms, one button that says finish.'],
+    ['A5','','App · Delivery, card already on file','Same card, other state: their saved card is shown and one tap uses it. No hunting for Continue.'],
+    ['A6','','App · card saved','Only now does Delivery say done. The card flips to its "Added" state.']
   ],
   b:[
     ['B1','','Invite · before accepting','The deal lists the guarantee up front, so the card isn\'t a surprise. Approximated chrome.'],
@@ -793,7 +844,8 @@ const strips={
     ['C2','','Card sheet','Titled after the reason, with the one fact creators skim for. The terms line now covers every campaign: the one legal change C needs (Katie\'s question).'],
     ['C3','','Onboarding done','The card shows up as one of the things that make them ready.'],
     ['C4','','Later · Accept & Commit','<b>One tap.</b> No card form at the exciting moment, just a line saying they\'re covered.'],
-    ['C5','','Not now, or onboarded before Monday','<b>Everyone already on Benable lands here.</b> They still need a card before accepting, which is B\'s gate. C can\'t replace B.']
+    ['C5','','Existing creators · popup on Discover','<b>For everyone onboarded before this ships.</b> Shown once when they open the app, same sheet style as the Instagram recs popup.'],
+    ['C6','','If they swipe it away','The Brand Collabs tab keeps asking, and invites can\'t be accepted without a card. That is still B\'s gate: C can\'t replace B.']
   ]
 };
 
