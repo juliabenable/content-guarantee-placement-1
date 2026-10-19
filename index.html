@@ -687,10 +687,10 @@ A1:()=>`<div class="ph store">${storeBg()}<div class="scrim"></div>
    <div class="ct" style="gap:12px;padding-top:22px">
     <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="28" fill="#FFFBEB" stroke="#FDE68A" stroke-width="5"/><path d="M32 4a28 28 0 0 1 0 56" fill="none" stroke="#D97706" stroke-width="5" stroke-linecap="round"/><text x="32" y="38" text-anchor="middle" font-family="Inter,sans-serif" font-size="17" font-weight="700" fill="#92400E">1/2</text></svg>
     <div class="nd">You're not done yet</div>
-    <p class="mut" style="font-size:15px;line-height:22px">Your picks are saved. Add a card for the Content Guarantee in the Benable app to finish. $0 today.</p>
+    <p class="mut" style="font-size:15px;line-height:22px">Your picks are saved. Confirm your address and Content Guarantee in the Benable app to finish.</p>
     <div class="steps2" style="margin-top:4px">
       <div class="s done">${ok(24)}<div><b>Confirm your picks</b><span class="sub">${P.camp}</span></div></div>
-      <div class="s next"><span class="num2">2</span><div><b>Add a card in Benable</b><span class="sub">Content Guarantee · $0 today</span></div></div>
+      <div class="s next"><span class="num2">2</span><div><b>Confirm your address and Content Guarantee</b><span class="sub">In the Benable app · $0 today</span></div></div>
     </div></div>
    <div class="ft"><div class="btn" style="height:52px;font-size:17px">Finish in Benable</div><p style="font-weight:400;font-size:13px;color:#717171">You can update your picks here until your order ships.</p></div></div></div>`,
 A2:()=>`<div class="ph">${appTop(1,.25,1.5)}<div class="bd" style="gap:14px">
@@ -699,12 +699,12 @@ A2:()=>`<div class="ph">${appTop(1,.25,1.5)}<div class="bd" style="gap:14px">
   <div class="pop"><div class="grab2"></div>
    ${fan(`<div class="prodc">${bottle(120)}</div>`)}
    <h4>You're not done yet</h4>
-   <p class="ps">Your ${P.camp} is picked. Add a card for the Content Guarantee to finish. $0 today, only charged if you never post.</p>
+   <p class="ps">Your address is confirmed. Add a card for the Content Guarantee to finish. $0 today, only charged if you never post.</p>
    <div class="btn blk">Add a card</div></div></div>`,
 A3:()=>`<div class="ph">${appTop(1,.25,1.5)}<div class="bd" style="gap:14px">
   <div><span class="amb-pill">1 step left</span>
   <div class="nd" style="margin-top:8px">You're not done yet</div>
-  <p class="mut" style="margin-top:4px">Your picks are saved. Add your card to finish.</p></div>
+  <p class="mut" style="margin-top:4px">Your picks and address are saved. Add your card to finish.</p></div>
   ${taskCard('new')}
   <div><div style="font-size:13px;font-weight:600;color:#717171;margin:6px 0 8px">Your order</div>${orderMuted()}</div>
   </div></div>`,
@@ -800,9 +800,10 @@ C4:()=>`<div class="ph">${invite()}
 C5:()=>`<div class="ph">${discoverBg()}<div class="scrim"></div>
   <div class="pop"><div class="grab2"></div>
    ${fan(`<div class="prodc" style="background:linear-gradient(160deg,#EEF0F7,#D9DDEA)">${bottle(110)}</div>`)}
-   <h4>Gifted campaigns now come with a card on file</h4>
-   <p class="ps">Brands send you product for free. A card is how they know you'll post. $0 today, only charged if you get a product and never post.</p>
-   <div class="btn blk">Add a card</div></div></div>`,
+   <h4>Gifted campaigns now require a card on file</h4>
+   <p class="ps">$0 today. Brands send you product for free, and a card is how they know you'll post. You're only charged if you get a product and never post.</p>
+   <div class="lnk" style="margin-top:10px;font-size:14px">Learn more</div>
+   <div class="btn blk" style="margin-top:20px">Add a card</div></div></div>`,
 C6:()=>`<div class="ph">${sb()}<div class="obh">Brand Collabs</div>
   <div class="bd" style="gap:14px">
    <div class="banner"><div style="display:flex;gap:10px;align-items:center"><span style="color:#7A5CFA">${I.card}</span><b style="font-size:15px">Add a card to get collab invites</b></div><span class="mut" style="font-size:13.5px;line-height:19px">Gifted collabs need a Content Guarantee. $0 today, only charged if you get a product and never post.</span><div class="btn sm">Add a card</div></div>
@@ -824,8 +825,8 @@ const strips={
     ['T4','t','App · Free order, saved card','Your screenshot: the card is preselected and Continue sits at the bottom.']
   ],
   a:[
-    ['A1','','Store (web) · after Confirm picks','<b>"You\'re not done yet" replaces "All done".</b> A half-filled ring instead of the green check, picks crossed off as step 1, the card as step 2 in amber. Web only: can ship today.'],
-    ['A2','','App · popup when they land back','<b>Same sheet style as the Instagram recs popup.</b> Fanned cards (card, product, post) with the guarantee badge on the seam, one title, one black button. Swipe it away and the card on Delivery is still there.'],
+    ['A1','','Store (web) · after Confirm picks','<b>"You\'re not done yet" replaces "All done".</b> A half-filled ring instead of the green check, picks crossed off as step 1, "Confirm your address and Content Guarantee" as step 2 in amber. Web only: can ship today.'],
+    ['A2','','App · popup right after Confirm address','<b>Same sheet style as the Instagram recs popup.</b> Fanned cards (card, product, post) with the guarantee badge on the seam, one title, one black button. Swipe it away and the card on Delivery is still there.'],
     ['A3','','App · Delivery, no card yet','<b>The card is the only thing on the page that asks for anything.</b> Amber "1 step left", "You\'re not done yet", then the Content Guarantee card. The order sits below, quiet.'],
     ['A4','','App · Add a card','A plain native screen behind both buttons: the $0 line, the form, the terms, one button that says finish.'],
     ['A5','','App · Delivery, card already on file','Same card, other state: their saved card is shown and one tap uses it. No hunting for Continue.'],
@@ -844,7 +845,7 @@ const strips={
     ['C2','','Card sheet','Titled after the reason, with the one fact creators skim for. The terms line now covers every campaign: the one legal change C needs (Katie\'s question).'],
     ['C3','','Onboarding done','The card shows up as one of the things that make them ready.'],
     ['C4','','Later · Accept & Commit','<b>One tap.</b> No card form at the exciting moment, just a line saying they\'re covered.'],
-    ['C5','','Existing creators · popup on Discover','<b>For everyone onboarded before this ships.</b> Shown once when they open the app, same sheet style as the Instagram recs popup.'],
+    ['C5','','Existing creators · popup on Discover','<b>For everyone onboarded before this ships.</b> Shown once when they open the app. Your draft, tightened: "Gifted" keeps it true, "$0 today" leads, one exclamation less.'],
     ['C6','','If they swipe it away','The Brand Collabs tab keeps asking, and invites can\'t be accepted without a card. That is still B\'s gate: C can\'t replace B.']
   ]
 };
