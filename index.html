@@ -272,6 +272,37 @@ td{color:var(--muted)}
 .ph .steps2 b{display:block;font-size:15px;line-height:20px;font-weight:600;color:var(--n1)}
 .ph .steps2 span.sub{display:block;font-size:13px;color:var(--n4)}
 .ph .num2{flex:0 0 24px;height:24px;border-radius:50%;background:#D97706;color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.ph.comp{width:343px;height:auto;background:transparent;overflow:visible;display:block}
+.ph .tc{background:#fff;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px;box-shadow:inset 0 0 0 1.5px var(--acc),0 10px 28px -16px rgba(122,92,250,.55)}
+.ph .tc.done{box-shadow:inset 0 0 0 1px var(--n8)}
+.ph .tc.bad{box-shadow:inset 0 0 0 1.5px #E5484D,0 10px 28px -18px rgba(229,72,77,.45)}
+.ph .tc .top{display:flex;gap:12px;align-items:center}
+.ph .tc .tile{flex:0 0 40px;height:40px;border-radius:12px;background:var(--acc-w);color:var(--acc);display:flex;align-items:center;justify-content:center}
+.ph .tc .tile.g{background:var(--grn-w);color:var(--grn)}
+.ph .tc .tile.r{background:var(--red-w);color:var(--red)}
+.ph .tc .ttl{flex:1;min-width:0}
+.ph .tc .ttl b{display:block;font-size:16px;line-height:21px;font-weight:600}
+.ph .tc .ttl span{display:block;font-size:13px;line-height:18px;color:var(--n4)}
+.ph .st{display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 9px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap}
+.ph .st::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.ph .st.amb{background:#FEF3C7;color:#92400E}
+.ph .st.grn{background:var(--grn-w);color:var(--grn)}
+.ph .st.red{background:var(--red-w);color:var(--red)}
+.ph .tc p.sub{font-size:13.5px;line-height:19px;color:var(--n3)}
+.ph .tc p.sub b{color:var(--n1);font-weight:600}
+.ph .tc .cardrow{display:flex;align-items:center;gap:10px;border:1px solid var(--n8);border-radius:12px;padding:10px 12px}
+.ph .tc .cardrow .tx{flex:1}
+.ph .tc .cardrow b{display:block;font-size:14.5px;font-weight:600}
+.ph .tc .cardrow span{display:block;font-size:12.5px;color:var(--n4)}
+.ph .tc .cardrow .vis{width:34px;height:22px;border-radius:4px;border:1px solid var(--n8);display:flex;align-items:center;justify-content:center;font-style:italic;font-weight:800;font-size:9px;color:#1A1F71;flex:0 0 34px}
+.ph .tc .tfoot{display:flex;justify-content:center;align-items:center;gap:6px;font-size:12px;color:var(--n4)}
+.ph .tc .alt{text-align:center;font-size:14px;font-weight:500;color:var(--acc)}
+.tcgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(343px,1fr));gap:26px 26px;margin-top:18px;justify-items:start}
+.tcitem{display:flex;flex-direction:column;gap:10px;width:343px;max-width:100%}
+@media (max-width:420px){.tcitem{width:100%} .tcitem .ph.comp{width:100%}}
+.subhead{margin-top:34px;display:flex;flex-direction:column;gap:6px}
+.subhead h3{font-family:var(--f-display);font-stretch:75%;font-weight:800;font-size:26px;line-height:1.05;text-transform:uppercase;margin:0}
+.subhead p{color:var(--muted);max-width:70ch}
 .ph .hl{position:absolute;z-index:19;border:2px solid #D63C3C;border-radius:12px;background:rgba(214,60,60,.05);pointer-events:none}
 .ph .apl{display:inline-flex;align-items:center;gap:5px}
 .ph .apl svg{margin-top:-2px}
@@ -358,11 +389,13 @@ td{color:var(--muted)}
       </div>
     </div>
     <div class="strip" data-strip="a"></div>
-    <div class="twocol">
+    <div class="subhead"><h3>The Content Guarantee card</h3><p>One card on the Delivery page holds the whole ask: what it is, that it's $0 today, and one button. It changes state instead of the page changing around it.</p></div>
+    <div class="tcgrid" data-tc></div>
+    <div class="twocol" style="margin-top:28px">
       <div class="panel"><h3>What it fixes</h3><ul>
         <li>No screen says "done" until the card is in. The store sheet is web, so that part can ship today with no app release.</li>
         <li>One name everywhere: Content Guarantee. No "place the order", no "Free order".</li>
-        <li>The card form sits on the page itself, one block, one button. No extra tap to open it.</li>
+        <li>One card on Delivery holds the whole ask: status, the $0 line, one button. It shows the saved card when there is one.</li>
         <li>Saved card: one button that says what it does, "Use this card".</li>
       </ul></div>
       <div class="panel"><h3>What it doesn't fix</h3><ul>
@@ -568,6 +601,27 @@ const c1Body=()=>`<div class="bd white" style="gap:14px;padding-top:16px">
   </div>`;
 const guaranteeRow=(right)=>`<div class="sel" style="border-color:#E3E3E3"><span class="ic" style="width:34px;height:34px;border-radius:10px;background:#F1EDFF;color:#7A5CFA;display:flex;align-items:center;justify-content:center;flex:0 0 34px">${I.card}</span><div class="tx"><b>Content Guarantee</b><span>${P.card} · $0 today</span></div>${right}</div>`;
 
+const vis=()=>`<span class="vis">VISA</span>`;
+const lockMini=`<svg width="10" height="12" viewBox="0 0 11 13" aria-hidden="true"><rect x="0" y="5" width="11" height="8" rx="2" fill="#717171"/><path d="M2.5 5V3.6a3 3 0 0 1 6 0V5" stroke="#717171" stroke-width="1.6" fill="none"/></svg>`;
+const taskCard=(st='new')=>{
+  const line=`<p class="sub"><b>$0 today.</b> Only charged the ${P.amt} if you get the product and never post.</p>`;
+  const T={
+    new:{cls:'',tile:'',ic:I.card,chip:'<span class="st amb">Not added</span>',
+         body:`${line}<div class="btn">Add a card</div><div class="tfoot">${lockMini}Secured by Stripe</div>`},
+    saved:{cls:'',tile:'',ic:I.card,chip:'<span class="st amb">Not added</span>',
+         body:`${line}<div class="cardrow">${vis()}<div class="tx"><b>Visa ...0644</b><span>Expires 12/2029</span></div></div><div class="btn">Use this card</div><div class="alt">Use a different card</div>`},
+    last:{cls:'',tile:'',ic:I.card,chip:'<span class="st amb">Last day</span>',
+         body:`<p class="sub"><b>Today is the last day to add your card.</b> $0 today, only charged if you get the product and never post.</p><div class="btn">Add a card</div>`},
+    bad:{cls:'bad',tile:'r',ic:I.alert,chip:'<span class="st red">Declined</span>',
+         body:`<p class="sub"><b>Your bank declined Visa ...0002.</b> Try a different card. Debit cards work too.</p><div class="btn">Try another card</div><div class="tfoot">Still stuck? Reply to our text and we'll help.</div>`},
+    done:{cls:'done',tile:'g',ic:I.check('#1F8A55',18),chip:'<span class="st grn">Added</span>',
+         body:`<div class="cardrow">${vis()}<div class="tx"><b>Visa ...4242</b><span>$0 today</span></div><span class="rp" style="color:#7A5CFA;font-size:14px;font-weight:500">Change</span></div>`}
+  }[st];
+  return `<div class="tc ${T.cls}"><div class="top"><span class="tile ${T.tile}">${T.ic}</span><div class="ttl"><b>Content Guarantee</b></div>${T.chip}</div>${T.body}</div>`;
+};
+const orderMuted=()=>`<div class="card16" style="display:flex;gap:12px;align-items:center;opacity:.75"><div class="thumbs"><span>${bottle(40)}</span></div><div style="flex:1"><b style="display:block;font-size:14px">${P.camp}</b><span style="font-size:13px;color:#717171">${P.brand} is preparing your order</span></div></div>`;
+const pushTop=(t)=>`${sb()}<div class="obh" style="border-bottom:1px solid #F1F1F1"><span class="bk">‹</span>${t}</div>`;
+
 /* ---------- screens ---------- */
 const S={
 /* TODAY */
@@ -603,35 +657,31 @@ A1:()=>`<div class="ph store">${storeBg()}<div class="scrim"></div>
       <div class="s next"><span class="num2">2</span><div><b>Add a card in Benable</b><span class="sub">Content Guarantee · $0 today</span></div></div>
     </div></div>
    <div class="ft"><div class="btn" style="height:52px;font-size:17px">Finish in Benable</div><p style="font-weight:400;font-size:13px;color:#717171">You can update your picks here until your order ships.</p></div></div></div>`,
-A2:()=>`<div class="ph">${appTop(1,.25,1.5)}<div class="bd">
-  <span class="amb-pill">1 step left</span>
+A2:()=>`<div class="ph">${appTop(1,.25,1.5)}<div class="bd" style="gap:14px">
+  <div><span class="amb-pill">1 step left</span>
   <div class="nd" style="margin-top:8px">You're not done yet</div>
-  <p class="mut" style="margin-top:4px">Your picks are saved. Add a card for the Content Guarantee to finish.</p>
-  <div class="card16" style="margin-top:14px;padding:14px">
-    <div style="display:flex;justify-content:space-between;align-items:baseline"><b style="font-size:15px">Content Guarantee</b><span class="lnk" style="font-size:13px">Learn more</span></div>
-    <p class="mut" style="font-size:13px;line-height:18px;margin-top:4px">$0 today. You're only charged the ${P.amt} if you get the product and never post.</p>
-    <div style="margin-top:12px">${fields({name:true})}</div>
-  </div>
+  <p class="mut" style="margin-top:4px">Your picks are saved. Add your card to finish.</p></div>
+  ${taskCard('new')}
+  <div><div style="font-size:13px;font-weight:600;color:#717171;margin:6px 0 8px">Your order</div>${orderMuted()}</div>
+  </div></div>`,
+A3:()=>`<div class="ph">${pushTop('Add a card')}<div class="bd white" style="gap:14px">
+  <div><div class="t20">Content Guarantee</div><p class="mut" style="margin-top:4px">$0 today. You're only charged the ${P.amt} if you get the product and never post. You'll always get a final warning first.</p></div>
+  ${fields({name:true})}
   <div style="margin-top:auto;display:flex;flex-direction:column;gap:10px">
    <p class="consent">By saving your card, you agree to the <span>Content Guarantee Terms.</span></p>
    <div class="btn">Save card and finish</div>${lock()}</div></div></div>`,
-A3:()=>`<div class="ph">${appTop(1,.25,1.5)}<div class="bd">
-  <span class="amb-pill">1 step left</span>
+A4:()=>`<div class="ph">${appTop(1,.25,1.5)}<div class="bd" style="gap:14px">
+  <div><span class="amb-pill">1 step left</span>
   <div class="nd" style="margin-top:8px">You're not done yet</div>
-  <p class="mut" style="margin-top:4px">Your picks are saved. Confirm your card for the Content Guarantee to finish.</p>
-  <div class="card16" style="margin-top:14px;padding:14px">
-    <div style="display:flex;justify-content:space-between;align-items:baseline"><b style="font-size:15px">Content Guarantee</b><span class="lnk" style="font-size:13px">Learn more</span></div>
-    <p class="mut" style="font-size:13px;line-height:18px;margin-top:4px">$0 today. You're only charged the ${P.amt} if you get the product and never post.</p>
-    <div class="sel" style="margin-top:12px"><div class="tx"><b>Visa ...0644</b><span>Expiration: 12/2029</span></div><span class="rp">Replace</span></div>
-  </div>
-  <div style="margin-top:auto;display:flex;flex-direction:column;gap:10px">
-   <p class="consent">By continuing, you agree to the <span>Content Guarantee Terms.</span></p>
-   <div class="btn">Use this card and finish</div>${lock()}</div></div></div>`,
-A4:()=>`<div class="ph">${appTop(1,.5)}<div class="bd" style="gap:14px">
+  <p class="mut" style="margin-top:4px">Your picks are saved. Confirm your card to finish.</p></div>
+  ${taskCard('saved')}
+  <div><div style="font-size:13px;font-weight:600;color:#717171;margin:6px 0 8px">Your order</div>${orderMuted()}</div>
+  </div></div>`,
+A5:()=>`<div class="ph">${appTop(1,.5)}<div class="bd" style="gap:14px">
    <div style="display:flex;gap:10px;align-items:center">${ok(28)}<div class="nd" style="font-size:22px">Now you're done</div></div>
    <p class="mut">Your order is on its way. We'll update this page when tracking is available.</p>
+   ${taskCard('done')}
    <div class="card16" style="display:flex;gap:12px;align-items:center"><div class="thumbs"><span>${bottle(40)}</span></div><div style="flex:1"><b style="display:block;font-size:14px">${P.camp}</b><span style="font-size:13px;color:#717171">Order placed · ships to ${P.city}</span></div></div>
-   ${guaranteeRow('<span class="rp">Change</span>')}
   </div></div>`,
 
 /* B */
@@ -725,9 +775,10 @@ const strips={
   ],
   a:[
     ['A1','','Store (web) · after Confirm picks','<b>"You\'re not done yet" replaces "All done".</b> A half-filled ring instead of the green check, picks crossed off as step 1, the card as step 2 in amber. Web only: can ship today.'],
-    ['A2','','App · Delivery, new card','<b>The app says it again, loudest thing on the page.</b> Same Delivery page as today, minus the chooser: amber "1 step left", the card form in one block. The button says "finish".'],
-    ['A3','','App · Delivery, saved card','Today\'s saved-card page with the same "not done yet" header and one button that says what it does.'],
-    ['A4','','App · card saved','Only now does the app say done. If they leave before saving, Delivery reopens on A2 and the texts take over.']
+    ['A2','','App · Delivery, no card yet','<b>The card is the only thing on the page that asks for anything.</b> Amber "1 step left", "You\'re not done yet", then the Content Guarantee card. The order sits below, quiet.'],
+    ['A3','','App · Add a card','A plain native screen behind the card\'s button: the $0 line, the form, the terms, one button that says finish.'],
+    ['A4','','App · Delivery, card already on file','Same card, other state: their saved card is shown and one tap uses it. No hunting for Continue.'],
+    ['A5','','App · card saved','Only now does Delivery say done. The card flips to its "Added" state.']
   ],
   b:[
     ['B1','','Invite · before accepting','The deal lists the guarantee up front, so the card isn\'t a surprise. Approximated chrome.'],
@@ -746,6 +797,13 @@ const strips={
   ]
 };
 
+const TC=[['new','No card yet','The default on Delivery. Title and status on one line, the $0 line, one button.'],
+  ['saved','Card already on file','Same card with their saved card inside. One tap uses it; "Use a different card" opens the form.'],
+  ['last','Last day','For creators who come back after a text. Only the chip and the first words change.'],
+  ['bad','Card declined','Red border and chip, what happened in bold, what to try, and a way out. Ops gets an alert.'],
+  ['done','Added','Quiet once it\'s done: grey border, green chip, the card with Change.']];
+const tcEl=document.querySelector('[data-tc]');
+if(tcEl) tcEl.innerHTML=TC.map(([st,name,cap])=>`<div class="tcitem"><div class="ph comp">${taskCard(st)}</div><div class="cap"><div class="step">${name}</div><p>${cap}</p></div></div>`).join('');
 function pinsHTML(id){return (PINS[id]||[]).map(([n,y])=>`<span class="pg-pin" style="left:calc(375px * var(--s));top:calc(${y}px * var(--s))">${n}</span>`).join('')}
 function frameHTML(id,inLB){return `<div class="fwrap"><div class="frame" ${inLB?'':`tabindex="0" role="button" aria-label="Open ${id} full size"`} data-id="${id}">${S[id]()}</div><div class="pins">${pinsHTML(id)}</div></div>`}
 document.querySelectorAll('[data-strip]').forEach(el=>{
